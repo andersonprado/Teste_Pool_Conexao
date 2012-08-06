@@ -40,4 +40,29 @@ public class PessoaDAO {
 		}
 		return lista;
 	}
+
+	public Pessoa getPessoa(int id) {
+
+		Pessoa pessoa = new Pessoa();
+
+		String query = "SELECT * FROM pessoa where id = ?";
+
+		try {
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+
+				pessoa.setId(rs.getInt("id"));
+				pessoa.setNome(rs.getString("nome"));
+				pessoa.setTelefone(rs.getString("telefone"));
+
+			}
+		} catch (SQLException e) {
+
+			new RuntimeException();
+		}
+		return pessoa;
+	}
 }
